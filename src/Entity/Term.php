@@ -33,9 +33,15 @@ class Term
      */
     private $pages;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
     public function __construct()
     {
         $this->pages = new ArrayCollection();
+        $this->created = new \DateTime();
     }
 
     public function getId()
@@ -94,6 +100,18 @@ class Term
                 $page->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
 
         return $this;
     }

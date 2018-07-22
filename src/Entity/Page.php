@@ -31,6 +31,20 @@ class Page
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
+    /**
+     * Page constructor.
+     * @param $created
+     */
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+    }
+
 
     public function getId()
     {
@@ -69,6 +83,18 @@ class Page
     public function setCategory(?Term $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
 
         return $this;
     }
