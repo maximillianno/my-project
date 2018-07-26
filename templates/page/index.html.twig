@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Maxus!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% block regionHeader %}
+            {% endblock %}
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                {% block regionLeft %}
+                {% endblock %}
+            </div>
+            <div class="col-sm-8">
+                {% block regionRight %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'page/index.html.twig' %}
+
+{% block regionRight %}
+    <div class="block block--page-list">
+        <div class="block-content">
+            {% for page in pages %}
+                <div class="list-item">
+                    {% include('page/teaser.twig.html') %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block regionLeft %}
+    Region Left
+{% endblock %}
