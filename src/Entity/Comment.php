@@ -24,13 +24,15 @@ class Comment
     private $comment;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Page", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="comments")
      */
-    private $pages;
+    private $page;
+
+
 
     public function __construct()
     {
-        $this->pages = new ArrayCollection();
+
     }
 
     public function getId()
@@ -50,36 +52,24 @@ class Comment
         return $this;
     }
 
-    /**
-     * @return Collection|Page[]
-     */
-    public function getPages(): Collection
-    {
-        return $this->pages;
-    }
 
-    public function addPage(Page $page): self
-    {
-        if (!$this->pages->contains($page)) {
-            $this->pages[] = $page;
-        }
-
-        return $this;
-    }
-
-    public function removePage(Page $page): self
-    {
-        if ($this->pages->contains($page)) {
-            $this->pages->removeElement($page);
-        }
-
-        return $this;
-    }
 
     public function __toString()
     {
         // TODO: Implement __toString() method.
         return $this->comment;
+    }
+
+    public function getPage(): ?Page
+    {
+        return $this->page;
+    }
+
+    public function setPage(?Page $page): self
+    {
+        $this->page = $page;
+
+        return $this;
     }
 
 

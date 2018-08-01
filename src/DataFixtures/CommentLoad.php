@@ -12,21 +12,37 @@ class CommentLoad extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+
         $pageRepo = $manager->getRepository(Page::class);
-        $pages = $pageRepo->findAll();
-        foreach ($pages as $page) {
-            for ($i = 1; $i < 3; $i++){
-                $comment = new Comment();
-                $comment->setComment('comment '.$i);
-                $page->addComment($comment);
-                $manager->persist($comment);
+//            $page = $pageRepo->findOneByTitle('article '.$i);
+            $pages = $pageRepo->findAll();
+            foreach ($pages as $page) {
+
+                    for ($k = 0; $k < 5; $k++) {
+                        $comment = new Comment();
+                        $comment->setComment('comment #'.($k + 1));
+                        $comment->setPage($page);
+                        $manager->persist($comment);
+                    }
+
+
             }
-            $manager->persist($page);
-        }
 
         $manager->flush();
+
+
+//        $pages = $pageRepo->findAll();
+
+//        foreach ($pages as $page) {
+//            for ($i = 1; $i < 3; $i++){
+//                $comment = new Comment();
+//                $comment->setComment('comment '.$i);
+//                $page->addComment($comment);
+//                $manager->persist($comment);
+//            }
+//            $manager->persist($page);
+//        }
+//        $manager->flush();
     }
 
 

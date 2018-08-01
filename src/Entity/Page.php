@@ -39,9 +39,11 @@ class Page
     private $created;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Comment", mappedBy="pages")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="page")
      */
     private $comments;
+
+
 
     /**
      * Page constructor.
@@ -51,6 +53,7 @@ class Page
     {
         $this->created = new \DateTime();
         $this->comments = new ArrayCollection();
+
     }
 
 
@@ -107,6 +110,14 @@ class Page
         return $this;
     }
 
+    
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->title;
+    }
+
     /**
      * @return Collection|Comment[]
      */
@@ -119,7 +130,7 @@ class Page
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->addPage($this);
+            $comment->setPage($this);
         }
 
         return $this;
@@ -129,16 +140,13 @@ class Page
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
-            $comment->removePage($this);
+            // set the owning side to null (unless already changed)
+            if ($comment->getPage() === $this) {
+                $comment->setPage(null);
+            }
         }
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        // TODO: Implement __toString() method.
-        return $this->title;
     }
 
 
