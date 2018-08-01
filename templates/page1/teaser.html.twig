@@ -1,20 +1,15 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Page index{% endblock %}
-
-{% block body %}
+<div class="fields">
     <h1>Page index</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Body</th>
-                <th>Category</th>
-                <th>Created</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for page in pages %}
@@ -22,11 +17,10 @@
                 <td>{{ page.id }}</td>
                 <td>{{ page.title }}</td>
                 <td>{{ page.body }}</td>
-                <td>{{ page.category }}</td>
                 <td>{{ page.created ? page.created|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('page_show', {'id': page.id}) }}">show</a>
-                    <a href="{{ path('page_edit', {'id': page.id}) }}">edit</a>
+                    {#<a href="{{ path('page_edit', {'id': page.id}) }}">edit</a>#}
                 </td>
             </tr>
         {% else %}
@@ -37,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('page_new') }}">Create new</a>
-{% endblock %}
+    <a href="{{ path('term_new') }}">Create new</a>
+</div>

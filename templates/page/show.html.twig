@@ -1,16 +1,37 @@
-{% extends 'page/index.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block regionRight %}
-    <div class="block block--page-view">
-        <div class="block-content">
-            <h2 class="field field-title">{{ page.title }}</h2>
-            <div class="field field-body">{{ page.body }}</div>
-            <div class="field field-category">{{ page.category.name }}</div>
-            <div class="field field-created">{{ page.created.date|date('d-m-Y') }}</div>
-        </div>
-    </div>
-{% endblock %}
+{% block title %}Page{% endblock %}
 
-{% block regionLeft %}
-    Region Left
+{% block body %}
+    <h1>Page</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ page.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ page.title }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ page.body }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ page.created ? page.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('page_index') }}">back to list</a>
+
+    <a href="{{ path('page_edit', {'id': page.id}) }}">edit</a>
+
+    {{ include('page/_delete_form.html.twig') }}
+    {{ render(controller(
+        'App\\Controller\\CommentController::show', { 'id' : 1}
+    )) }}
 {% endblock %}
