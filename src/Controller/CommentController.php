@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Page;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +24,36 @@ class CommentController extends Controller
      */
     public function index(CommentRepository $commentRepository): Response
     {
-        return $this->render('comment/index.html.twig', ['comments' => $commentRepository->findAll()]);
+
+        //Текущая страница
+        $page = $this->get('request_stack')->getCurrentRequest()->query->get('page') ? $this->get('request_stack')->getCurrentRequest()->query->get('page') : 1;
+
+
+
+        //Адаптер для работы с БД через доктрин
+        $queryBuilder = $commentRepository->createQueryBuilder('c');
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+        //$adapter = new ArrayAdapter($commentRepository->findAll()); - получает все записи, а потом работает
+
+
+        $pagerfanta = new Pagerfanta($adapter);
+
+        //TODO: вынести в настройки потом
+        $pagerfanta->setMaxPerPage(3);
+        $pagerfanta->setCurrentPage($page);
+        //Количество общее
+        $nbResults = $pagerfanta->getNbResults();
+
+        $currentPageResults = $pagerfanta->getCurrentPageResults();
+
+
+
+
+
+//        dd($countcom);
+//        return $this->render('comment/index.html.twig', ['comments' => $commentRepository->findAll(), 'countcom' => $countcom[1]]);
+        return $this->render('comment/index.html.twig', ['comments' => $currentPageResults,  'my_pager' => $pagerfanta]);
+
     }
 
     /**

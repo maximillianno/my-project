@@ -19,6 +19,17 @@ class PageRepository extends ServiceEntityRepository
         parent::__construct($registry, Page::class);
     }
 
+    public function countPages(){
+        $qry = $this->createQueryBuilder('p')->select('count(p.id)');
+        return $qry->getQuery()->getOneOrNullResult();
+
+    }
+
+    public function findWord($word){
+        $qry = $this->createQueryBuilder('p')->where('p.body LIKE :word');
+        $qry->setParameter('word', '%'.$word.'%');
+        return $qry->getQuery()->getResult();
+    }
 //    /**
 //     * @return Page[] Returns an array of Page objects
 //     */

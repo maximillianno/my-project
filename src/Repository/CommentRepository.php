@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\Page;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -47,4 +48,27 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findLastComments(Page $page, $limit = 20){
+        return $this->createQueryBuilder('c')
+            ->where('c.page = :page')
+            ->setParameter('page', $page)
+            ->setMaxResults($limit)
+            ->orderBy('c.id', 'desc')
+            ->getQuery()
+            ->getResult();
+    }
+
+    //Общее количество комментов
+    public function countComments(){
+        $qry = $this->createQueryBuilder('c')->select('count(c.id)');
+        return $qry->getQuery()->getOneOrNullResult();
+    }
+
+    //возвращает конкретную страницу по несколько комментов
+    public function findPages($page = 1, $limit = 10){
+        $qry = $this->createQueryBuilder('c');
+        $qry->setMaxResults($limit)->setFirstResult(($limit * $page) - $limit);
+        return $qry->getQuery()->getResult();
+
+    }
 }
