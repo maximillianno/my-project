@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/")
+ * @Route("/page")
  */
 class PageController extends Controller
 {
@@ -90,13 +90,13 @@ class PageController extends Controller
      */
     public function show(Page $page): Response
     {
-        $firstComment = $this->getDoctrine()->getRepository('App:Comment')->findLastComments($page);
+        //$firstComment = $this->getDoctrine()->getRepository('App:Comment')->findLastComments($page);
 
 
 
-        return $this->render('page/show.html.twig', [
+        return $this->render('piccolo/show.html.twig', [
             'page' => $page,
-            'first_comment' => $firstComment[0]
+//            'first_comment' => $firstComment[0]
         ]);
     }
 

@@ -1,0 +1,12 @@
+{% extends('piccolo/nav.html.twig')  %}
+{% block block_class %}main-menu-footer menu--main-menu-footer{% endblock  %}
+{% block title_wrap  %}{% endblock  %}
+{% block block_content  %}
+    <input type="checkbox" id="main-menu-input" class="main-menu-input">
+    <label for="main-menu-input">Hamburger</label>
+    <ul class="menu">
+        <li class="menu-item"><a href="#">Home</a></li>
+        <li class="menu-item"><a href="#">Articles</a></li>
+        <li class="menu-item"><a href="#">Contacts</a></li>
+    </ul>
+{% endblock  %}

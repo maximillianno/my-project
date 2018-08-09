@@ -1,0 +1,32 @@
+@import "compass";
+@import "../inc/variables";
+
+html, body{
+
+   padding: 0;
+   margin: 0;
+ }
+body{
+  overflow-y: scroll;
+  font: 14px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+*{
+  @include box-sizing(border-box)
+}
+
+a{
+  color: $red;
+  text-decoration: none;
+  font-family: "Oswald", sans-serif;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+h1{
+  font-family: "Oswald", sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 36px;
+  line-height: 40px;
+}

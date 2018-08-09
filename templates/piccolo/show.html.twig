@@ -1,0 +1,20 @@
+{% extends 'piccolo/preview.html.twig' %}
+{#Этот вью мы вызываем из PageController::show($id) передаем сюда Page и  #}
+{% block main %}
+    <article class="block block--page-view page-view page-{{ page.id }}">
+        <div class="block-content">
+            <div class="fields fields-top">
+                <div class="field field-body">{{ page.body }}</div>
+                <div class="list-link">
+                    <div class="list-link-item page-category">{{ page.category.name }}</div>
+                    <div class="list-link-item page-created">{{ page.created.date|date('d-m-Y') }}</div>
+                </div>
+
+            </div>
+
+            <div class="field field-comments">{{  include('comments/list.html.twig', {'items': page.comments}) }}</div>
+
+        </div>
+    </article>
+{% endblock %}
+
